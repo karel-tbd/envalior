@@ -1,0 +1,11 @@
+{% if app.session.flashBag.peekAll is not empty %}
+    <div class="absolute z-30 right-4 top-4">
+        {% for type, messages in app.flashes %}
+            {% for message in messages %}
+                <twig:Alert type="{{ type }}">
+                    {{ message|raw }}
+                </twig:Alert>
+            {% endfor %}
+        {% endfor %}
+    </div>
+{% endif %}

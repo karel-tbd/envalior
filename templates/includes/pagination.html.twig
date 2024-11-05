@@ -1,0 +1,3 @@
+{% if pagination is defined and pagination.totalItemCount >pagination.itemNumberPerPage %}
+    {{ knp_pagination_render(pagination) }}
+{% endif %}
