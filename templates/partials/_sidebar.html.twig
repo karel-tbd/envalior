@@ -18,8 +18,8 @@
                 </a>
             </li>
             <li class="h-20">
-                <a href=""
-                   class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group {# {% if app.current_route == 'app_blog_scroll' %}bg-gray-100{% endif %} #}">
+                <a href="{{ path('app_register') }}"
+                   class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group  {% if app.current_route == 'app_register' %}bg-gray-900{% endif %} ">
                     <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                          aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
                         <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z"/>
@@ -49,14 +49,17 @@
                 </a>
             </li>
             <li class="h-20 text-white p-2 ">
-                <h2>Hulp nodig?</h2>
-                <h3>Contractor management</h3>
-                <p>T: <span>+32 3 212 3118</span></p>
-                <p>E: <span>contractormanagement.lanxessnv@lanxess.com</span></p>
-                <h3>Preventiedienst LANXESS Belgium nv</h3>
-                <p>E: <span>LBE-HSE@lanxess.com</span></p>
-                <h3>Preventiedienst LANXESS Performance Materials nv</h3>
-                <p>E: <span>preventieadviseurs.LPM.belgie@lanxess.com</span></p>
+                <h2 class="text-lg font-bold mb-5">Hulp nodig?</h2>
+                <h3 class="font-semibold mb-3">Contractor management</h3>
+                <p class="text-sm text-gray-200 mb-1">T: <a href="tel:+32 3 212 3118">+32 3 212 3118</a></p>
+                <p class="text-sm text-gray-200 mb-1">E: <a href="mailto:contractormanagement.lanxessnv@lanxess.com">contractormanagement.lanxessnv@lanxess.com</a>
+                </p>
+                <h3 class="font-semibold mb-3 mt-5">Preventiedienst LANXESS Belgium nv</h3>
+                <p class="text-sm text-gray-200 mb-1">E: <a href="mailto:LBE-HSE@lanxess.com">LBE-HSE@lanxess.com</a>
+                </p>
+                <h3 class="font-semibold mb-3 mt-5">Preventiedienst LANXESS Performance Materials nv</h3>
+                <p class="text-sm text-gray-200 mb-1">E: <a href="mailto:preventieadviseurs.LPM.belgie@lanxess.com">preventieadviseurs.LPM.belgie@lanxess.com</a>
+                </p>
             </li>
         </ul>
     </div>
