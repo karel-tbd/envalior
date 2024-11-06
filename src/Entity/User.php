@@ -35,17 +35,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
-    #[NotBlank]
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
+    #[NotBlank]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 255)]
+    #[NotBlank]
     private ?string $lastName = null;
 
     #[ORM\Column(type: 'phone_number')]
+    #[NotBlank]
     private ?PhoneNumber $phoneNumber = null;
+
+    #[ORM\Column(length: 255)]
+    #[NotBlank]
+    private ?string $envaliorContact = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $fullfill = null;
+
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    #[ORM\JoinColumn(nullable: false)]
+    #[NotBlank]
+    public ?Company $company = null;
+
+    #[ORM\Column]
+    #[NotBlank]
+    public ?bool $isAgreed = null;
 
     public function getEmail(): ?string
     {
@@ -146,9 +164,57 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->phoneNumber;
     }
 
-    public function setPhoneNumber(PhoneNumber $phoneNumber): static
+    public function setPhoneNumber(?PhoneNumber $phoneNumber): static
     {
         $this->phoneNumber = $phoneNumber;
+
+        return $this;
+    }
+
+    public function getEnvaliorContact(): ?string
+    {
+        return $this->envaliorContact;
+    }
+
+    public function setEnvaliorContact(string $envaliorContact): static
+    {
+        $this->envaliorContact = $envaliorContact;
+
+        return $this;
+    }
+
+    public function isFullfill(): ?bool
+    {
+        return $this->fullfill;
+    }
+
+    public function setFullfill(?bool $fullfill): static
+    {
+        $this->fullfill = $fullfill;
+
+        return $this;
+    }
+
+    public function getCompany(): ?Company
+    {
+        return $this->company;
+    }
+
+    public function setCompany(?Company $company): static
+    {
+        $this->company = $company;
+
+        return $this;
+    }
+
+    public function isAgreed(): ?bool
+    {
+        return $this->isAgreed;
+    }
+
+    public function setAgreed(bool $isAgreed): static
+    {
+        $this->isAgreed = $isAgreed;
 
         return $this;
     }
