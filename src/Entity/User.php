@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
+use App\Entity\Trait\BlameableTrait;
 use App\Entity\Trait\DefaultTrait;
-use App\Entity\Trait\TimestampableTrait;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 use libphonenumber\PhoneNumber;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -13,13 +14,14 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     use DefaultTrait;
-    use TimestampableTrait;
-
+    use TimestampableEntity;
+    use BlameableTrait;
 
     #[ORM\Column(length: 180)]
     #[NotBlank]
@@ -54,11 +56,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $envaliorContact = null;
 
     #[ORM\Column(nullable: true)]
-    private ?bool $fullfill = null;
+    private ?bool $fullfill = false;
 
     #[ORM\ManyToOne(inversedBy: 'users')]
-    #[ORM\JoinColumn(nullable: false)]
-    #[NotBlank]
     public ?Company $company = null;
 
     #[ORM\Column]

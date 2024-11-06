@@ -2,17 +2,19 @@
 
 namespace App\Form;
 
-use App\Entity\Company;
 use App\Entity\User;
 use Misd\PhoneNumberBundle\Form\Type\PhoneNumberType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Validator\Constraints\Callback;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -20,6 +22,11 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 class RegistrationFormType extends AbstractType
 {
+    public function __construct(private readonly RouterInterface $router, private readonly UserPasswordHasherInterface $userPasswordHasher)
+    {
+
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -91,25 +98,46 @@ class RegistrationFormType extends AbstractType
                 'country_display_type' => 'display_country_short',
                 'default_region' => 'BE',
                 'country_options' => [
-
+                    /*   'autocomplete' => true,*/
                 ],
                 'number_options' => [
                     'required' => false,
                 ],
 
             ])
-            ->add('company', EntityType::class, [
-                'placeholder' => '',
+            ->add('company', TextType::class, [
+                'mapped' => false,
                 'autocomplete' => true,
                 'label' => 'Bedrijfnaam',
-                'class' => Company::class,
                 'required' => false,
-
+                'tom_select_options' => [
+                    'create' => true,
+                    'createOnBlur' => true,
+                    'maxItems' => 1,
+                ],
+                'autocomplete_url' => $this->router->generate('ux_entity_autocomplete', ['alias' => 'company']),
             ])
             ->add('envaliorContact', TextType::class, [
                 'label' => 'Envalior contact',
                 'required' => false,
-            ]);
+            ])
+            ->add('contractNumber', TextType::class, [
+                'label' => 'Contract number',
+                'required' => false,
+                'mapped' => false,
+            ])
+            ->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+                /** @var User $user */
+                $user = $event->getData();
+                $form = $event->getForm();
+                if ($form->has('plainPassword')) {
+                    $plainPassword = $form->get('plainPassword')->getViewData();
+                    if (!empty($plainPassword)) {
+                        $hashedPassword = $this->userPasswordHasher->hashPassword($user, $plainPassword);
+                        $user->setPassword($hashedPassword);
+                    }
+                }
+            });
         /* ->add('contracts', EntityType::class, [
              'class' => 'App\Entity\Contract',
          ]);*/
