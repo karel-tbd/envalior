@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\User;
+use libphonenumber\PhoneNumberFormat;
 use Misd\PhoneNumberBundle\Form\Type\PhoneNumberType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -94,6 +95,7 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('phoneNumber', PhoneNumberType::class, [
                 'widget' => PhoneNumberType::WIDGET_COUNTRY_CHOICE,
+                'format' => PhoneNumberFormat::E164,
                 'country_display_emoji_flag' => true,
                 'country_display_type' => 'display_country_short',
                 'default_region' => 'BE',
