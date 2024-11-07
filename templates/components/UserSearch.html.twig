@@ -1,0 +1,29 @@
+<div{{ attributes }}>
+    {{ form_start(form) }}
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+    
+    {% for user in this.users %}
+        <div class="bg-gray-100 rounded-lg w-4/5 my-3 p-5 openContent" data-controller="users">
+            <p> {{ user.email }}</p>
+            <p class="mt-5 font-thin">{{ user.company.name }}</p>
+
+            <table class="mt-5 hidden userContent">
+                <tr>
+                    <td>Volledige naam:</td>
+                    <td>{{ user.firstName }} {{ user.lastName }}</td>
+                </tr>
+                <tr>
+                    <td> Telefoonnummer:</td>
+                    <td>{{ user.phoneNumber|phone_number_format }}</td>
+                </tr>
+                <tr>
+                    <td>Envalior contact:</td>
+                    <td>{{ user.envaliorContact }}</td>
+                </tr>
+            </table>
+
+        </div>
+
+    {% endfor %}
+</div>

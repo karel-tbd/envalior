@@ -32,4 +32,10 @@ return [
         'version' => '2.3.1',
         'type' => 'css',
     ],
+    'flowbite/dist/flowbite.turbo.js' => [
+        'version' => '2.5.2',
+    ],
+    '@symfony/ux-live-component' => [
+        'path' => './vendor/symfony/ux-live-component/assets/dist/live_controller.js',
+    ],
 ];
