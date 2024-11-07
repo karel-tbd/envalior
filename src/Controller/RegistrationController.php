@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Company;
+use App\Entity\Contract;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Repository\CompanyRepository;
+use App\Repository\ContractRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +17,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class RegistrationController extends AbstractController
 {
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, EntityManagerInterface $entityManager, CompanyRepository $companyRepository): Response
+    public function register(Request $request, EntityManagerInterface $entityManager, CompanyRepository $companyRepository, ContractRepository $contractRepository): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -23,30 +25,25 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $companyName = $form->get('company')->getData();
-            $vatNumber = $form->get('contractNumber')->getData();
+            $contractNumber = $form->get('contractNumber')->getData();
 
             if ($companyName) {
                 if (empty($company = $companyRepository->findOneBy(['name' => $companyName]))) {
                     $company = new Company();
                     $company->setName($companyName);
-                    $company->setVatNumber($vatNumber);
                     $entityManager->persist($company);
                 }
-
                 $user->setCompany($company);
             }
 
-            /* if ($contractNumber) {
-                 $contract = (new Contract());
-                 $contract->setCompany($company);
-                 $contract->setNumber($contractNumber);
-                 $contract->setCompany($user->getCompany());
-                 $contract->setCreatedAt(new \DateTimeImmutable());
-                 $contract->setUpdatedAt(new \DateTimeImmutable());
-                 $contract->setUuidAtValue();
-
-                 $entityManager->persist($contract);
-             }*/
+            if ($contractNumber) {
+                if (empty($contract = $contractRepository->findOneBy(['number' => $contractNumber]))) {
+                    $contract = (new Contract());
+                    $contract->setCompany($company);
+                    $entityManager->persist($contract);
+                }
+                $contract->setNumber($contractNumber);
+            }
 
             $entityManager->persist($user);
             $entityManager->flush();

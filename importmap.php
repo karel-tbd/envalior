@@ -32,4 +32,7 @@ return [
         'version' => '2.3.1',
         'type' => 'css',
     ],
+    'flowbite/dist/flowbite.turbo.js' => [
+        'version' => '2.5.2',
+    ],
 ];
