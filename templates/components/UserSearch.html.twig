@@ -3,10 +3,21 @@
     {{ form_rest(form) }}
     {{ form_end(form) }}
 
-
     <div class="relative overflow-x-auto">
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <div class=" uppercase bg-gray-700 text-white grid grid-cols-3 mb-1 py-2 text-center">
+            <a href="{{ path('app_status', {status:'Accepted'}) }}">
+                Geaccepteerd
+            </a>
+            <a href="{{ path('app_status', {status:'Pending'}) }}">
+                In Behandeling
+            </a>
+            <a href="{{ path('app_status', {status:'Rejected'}) }}">
+                Geweigerd
+            </a>
+
+        </div>
+        <table class="w-full text-sm text-left rtl:text-right  text-gray-400">
+            <thead class="text-xs uppercase  bg-gray-700 text-gray-400">
             <tr class="text-white">
                 <th scope="col" class="px-6 py-3">
                     Email
@@ -30,29 +41,29 @@
             </thead>
             <tbody>
             {% for user in this.users %}
-            <tr class="bg-gray-800 border-gray-700 text-white">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {{ user.email }}
-                </th>
-                <td class="px-6 py-4">
-                    {{ user.company }}
-                </td>
-                <td class="px-6 py-4">
-                    {{ user.firstName }} {{ user.lastName }}
-                </td>
-                <td class="px-6 py-4">
-                    {{ user.phoneNumber|phone_number_format }}
-                </td>
-                <td class="px-6 py-4">
-                    {{ user.envaliorContact }}
-                </td>
-                <td>
-                    Accepteren / Weiger / Verwijder
-                </td>
-            </tr>
+                <tr class="bg-gray-800 border-gray-700 text-white">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        {{ user.email }}
+                    </th>
+                    <td class="px-6 py-4">
+                        {{ user.company }}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{ user.firstName }} {{ user.lastName }}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{ user.phoneNumber|phone_number_format }}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{ user.envaliorContact }}
+                    </td>
+                    <td>
+                        Accepteren / Weiger / Verwijder
+                    </td>
+                </tr>
+            {% endfor %}
             </tbody>
         </table>
     </div>
 
-    {% endfor %}
 </div>

@@ -20,6 +20,16 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         parent::__construct($registry, User::class);
     }
 
+    public function getStatusUser($status)
+    {
+        $query = $this->createQueryBuilder('user');
+        $query
+            ->andWhere('user.status = :status')
+            ->setParameter('status', $status);
+        return $query
+            ->getQuery()
+            ->getResult();
+    }
 
     public function search(array $search = []): array
     {
