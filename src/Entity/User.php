@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Entity\Trait\BlameableTrait;
 use App\Entity\Trait\DefaultTrait;
+use App\Enum\Status;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
@@ -64,6 +65,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     #[NotBlank]
     public ?bool $isAgreed = null;
+
+    #[ORM\Column(enumType: Status::class)]
+    private ?Status $status = Status::PENDING;
 
     public function getEmail(): ?string
     {
@@ -215,6 +219,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAgreed(bool $isAgreed): static
     {
         $this->isAgreed = $isAgreed;
+
+        return $this;
+    }
+
+    public function getStatus(): ?Status
+    {
+        return $this->status;
+    }
+
+    public function setStatus(Status $status): static
+    {
+        $this->status = $status;
 
         return $this;
     }

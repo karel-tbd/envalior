@@ -23,17 +23,17 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     public function search(array $search = []): array
     {
-        $query = $this->createQueryBuilder('u');
+        $query = $this->createQueryBuilder('user');
 
         if (QueryService::isNotEmpty($search, 'email')) {
             $query
-                ->andWhere('u.email LIKE :email')
+                ->andWhere('user.email LIKE :email')
                 ->setParameter('email', '%' . $search['email'] . '%');
         }
 
         if (QueryService::isNotEmpty($search, 'company')) {
             $query
-                ->andWhere('u.company IN (:company)')
+                ->andWhere('user.company IN (:company)')
                 ->setParameter('company', $search['company']);
         }
         return $query
