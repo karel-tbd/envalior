@@ -2,24 +2,44 @@
 
 namespace App\Form;
 
-use App\Entity\Information;
+use App\Entity\User;
 use libphonenumber\PhoneNumberFormat;
 use Misd\PhoneNumberBundle\Form\Type\PhoneNumberType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
-
-class InformationType extends AbstractType
+class UserFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('fullName', TextType::class, [
+            ->add('firstName', TextType::class, [
                 'required' => false,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter your first name',
+                    ]),
+                ]
+            ])
+            ->add('lastName', TextType::class, [
+                'required' => false,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter your name',
+                    ]),
+                ]
+            ])
+            ->add('email', EmailType::class, [
+                'required' => false,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter your email address',
+                    ]),
+                ]
             ])
             ->add('phoneNumber', PhoneNumberType::class, [
                 'widget' => PhoneNumberType::WIDGET_COUNTRY_CHOICE,
@@ -28,28 +48,17 @@ class InformationType extends AbstractType
                 'country_display_type' => 'display_country_short',
                 'default_region' => 'BE',
                 'country_options' => [
+                    /*   'autocomplete' => true,*/
                 ],
                 'number_options' => [
-                    'required' => false,
                 ],
-            ])
-            ->add('email', EmailType::class, [
-                'required' => false,
-            ])
-            ->add('hierarchy', ChoiceType::class, [
-                'choices' => [
-                    '1' => '1',
-                    '2' => '2',
-                    '3' => '3',
-                    '4' => '4',
-                ]
             ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Information::class,
+            'data_class' => User::class,
         ]);
     }
 }

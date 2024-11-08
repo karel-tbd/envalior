@@ -2,22 +2,27 @@
 
 namespace App\Entity;
 
+use App\Entity\Trait\BlameableTrait;
+use App\Entity\Trait\DefaultTrait;
 use App\Repository\InformationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 use libphonenumber\PhoneNumber;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 #[ORM\Entity(repositoryClass: InformationRepository::class)]
 class Information
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+
+    use DefaultTrait;
+    use TimestampableEntity;
+    use BlameableTrait;
 
     #[ORM\Column(length: 255)]
     private ?string $fullName = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: 'phone_number')]
+    #[NotBlank]
     private ?PhoneNumber $phoneNumber = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -28,11 +33,6 @@ class Information
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $type = null;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getFullName(): ?string
     {
@@ -46,12 +46,12 @@ class Information
         return $this;
     }
 
-    public function getPhoneNumber(): ?string
+    public function getPhoneNumber(): ?PhoneNumber
     {
         return $this->phoneNumber;
     }
 
-    public function setPhoneNumber(?string $phoneNumber): static
+    public function setPhoneNumber(?PhoneNumber $phoneNumber): static
     {
         $this->phoneNumber = $phoneNumber;
 

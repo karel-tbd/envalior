@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
+use Symfony\UX\LiveComponent\Attribute\LiveAction;
 use Symfony\UX\LiveComponent\ComponentWithFormTrait;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 use Symfony\UX\LiveComponent\LiveCollectionTrait;
@@ -27,4 +28,16 @@ final class Fullfill extends AbstractController
     {
         return $this->createForm(MainPrevAdvType::class);
     }
+
+    #[LiveAction]
+    public function save()
+    {
+        $this->submitForm();
+        dd('test');
+        $prevAdv1 = $this->getForm()->getData();
+        dd($prevAdv1);
+        //return $this->redirectToRoute('/index');
+    }
+
+
 }

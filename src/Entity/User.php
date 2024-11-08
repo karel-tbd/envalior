@@ -41,19 +41,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
-    #[NotBlank]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 255)]
-    #[NotBlank]
     private ?string $lastName = null;
 
     #[ORM\Column(type: 'phone_number')]
-    #[NotBlank]
     private ?PhoneNumber $phoneNumber = null;
 
     #[ORM\Column(length: 255)]
-    #[NotBlank]
     private ?string $envaliorContact = null;
 
     #[ORM\Column(nullable: true)]
@@ -63,7 +59,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public ?Company $company = null;
 
     #[ORM\Column]
-    #[NotBlank]
     public ?bool $isAgreed = null;
 
     #[ORM\Column(enumType: Status::class)]

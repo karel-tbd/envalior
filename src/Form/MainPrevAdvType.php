@@ -14,38 +14,42 @@ class MainPrevAdvType extends AbstractType
     {
         $builder
             ->add('prevAdv', LiveCollectionType::class, [
-                'entry_type' => PrevAdvType::class,
+                'entry_type' => UserFormType::class,
                 'entry_options' => ['label' => false],
                 'label' => false,
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,
+                'required' => false,
                 'constraints' => [
                     new Count(['min' => 1]),
                 ],
-            ])
-            ->add('informationICE', LiveCollectionType::class, [
-                'entry_type' => InformationType::class,
-                'entry_options' => ['label' => false],
-                'label' => false,
-                'allow_add' => true,
-                'allow_delete' => true,
-                'by_reference' => false,
-                'constraints' => [
-                    new Count(['min' => 1]),
-                ],
-            ])
-            ->add('informationUrgentSupport', LiveCollectionType::class, [
-                'entry_type' => InformationType::class,
-                'entry_options' => ['label' => false],
-                'label' => false,
-                'allow_add' => true,
-                'allow_delete' => true,
-                'by_reference' => false,
-                'constraints' => [
-                    new Count(['min' => 1]),
-                ],
+                'error_bubbling' => false,
             ]);
+        /*  ->add('informationICE', LiveCollectionType::class, [
+              'entry_type' => InformationFormType::class,
+              'entry_options' => ['label' => false],
+              'label' => false,
+              'required' => false,
+              'allow_add' => true,
+              'allow_delete' => true,
+              'by_reference' => false,
+              'constraints' => [
+                  new Count(['min' => 1]),
+              ],
+          ])
+          ->add('informationUrgentSupport', LiveCollectionType::class, [
+              'entry_type' => InformationFormType::class,
+              'entry_options' => ['label' => false],
+              'label' => false,
+              'allow_add' => true,
+              'required' => false,
+              'allow_delete' => true,
+              'by_reference' => false,
+              'constraints' => [
+                  new Count(['min' => 1]),
+              ],
+          ]);*/
     }
 
 

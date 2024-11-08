@@ -1,6 +1,11 @@
 <div{{ attributes }}>
 
-    {{ form_start(form) }}
+    {{ form_start(form, {
+        attr: {
+            'data-action': 'live#action:prevent',
+            'data-live-action-param': 'save',
+        }
+    }) }}
 
     <h2 class="my-5 text-3xl font-thin">Verplicht 1 - Preventie adviseur </h2>
     {% for prevAdv in form.prevAdv %}
@@ -12,7 +17,7 @@
 
     {% endif %}
 
-    <h2 class="my-5 text-3xl font-thin">Verplicht 1 - Bedrijf ICE informatie </h2>
+    {# <h2 class="my-5 text-3xl font-thin">Verplicht 1 - Bedrijf ICE informatie </h2>
     {% for info in form.informationICE %}
         {{ form_widget(info) }}
         {{ form_row(info.vars.button_delete, {label: 'Delete', attr: {class: 'border rounded-lg text-sm py-2 px-4 mb-2'}}) }}
@@ -31,7 +36,7 @@
         {{ form_widget(form.informationUrgentSupport.vars.button_add, {label: 'Add', attr: {class: 'border rounded-lg py-2 px-5 text-sm'}}) }}
 
     {% endif %}
-
+    #}
     <br>
     <button type="submit" class="border border-gray-100 py-2 px-10 mt-10">Werk deze registratie af</button>
 
