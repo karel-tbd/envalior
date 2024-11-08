@@ -41,6 +41,12 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
                 ->setParameter('email', '%' . $search['email'] . '%');
         }
 
+        if (QueryService::isNotEmpty($search, 'status')) {
+            $query
+                ->andWhere('user.status = :status')
+                ->setParameter('status', $search['status']);
+        }
+
         if (QueryService::isNotEmpty($search, 'company')) {
             $query
                 ->andWhere('user.company IN (:company)')

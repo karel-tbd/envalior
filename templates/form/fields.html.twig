@@ -1,0 +1,109 @@
+{% use '@TalesFromADevFlowbite/form/default.html.twig' %}
+
+{% block class_label -%}
+    block mb-2 text-sm font-medium text-gray-900
+{%- endblock class_label %}
+
+{% block class_input_radio_label -%}
+    ml-2 text-sm font-medium text-gray-900
+{%- endblock class_input_radio_label %}
+
+{% block class_input_switch_label -%}
+    {{ block('class_input_radio_label') }}
+{%- endblock class_input_switch_label %}
+
+{% block class_input_switch_label_container -%}
+    relative inline-flex items-center cursor-pointer
+{%- endblock class_input_switch_label_container %}
+
+{% block class_input_text -%}
+    text-gray-900 bg-gray-50 rounded-lg text-sm block w-full p-2.5 border border-gray-300 focus:z-10 focus:ring-blue-500 focus:border-blue-500
+{%- endblock class_input_text %}
+
+{% block class_input_range -%}
+    w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer
+{%- endblock class_input_range %}
+
+{% block class_input_file -%}
+    block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50
+{%- endblock class_input_file %}
+
+{% block class_input_radio -%}
+    w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500
+{%- endblock class_input_radio %}
+
+{% block class_input_checkbox -%}
+    rounded {{ block('class_input_radio') }}
+{%- endblock class_input_checkbox %}
+
+{% block class_input_switch -%}
+    relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-2 peer-focus:ring-blue-300 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600
+{%- endblock class_input_switch %}
+
+{% block class_select -%}
+    {{ block('class_input_text') }}
+{%- endblock class_select %}
+
+{% block class_textarea -%}
+    {{ block('class_input_text') }}
+{%- endblock class_textarea %}
+
+{% block class_button -%}
+    text-gray-900 bg-white font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 border border-gray-200 hover:text-blue-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200
+{%- endblock class_button %}
+
+{% block class_submit -%}
+    text-white bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-300
+{%- endblock class_submit %}
+
+{% block class_time_separator -%}
+    inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-x-0 border-gray-300
+{%- endblock class_time_separator %}
+
+{% block class_addon -%}
+    inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-gray-300
+{%- endblock class_addon %}
+
+{% block class_widget_addon_prepend -%}
+    rounded-none rounded-l-lg
+{%- endblock class_widget_addon_prepend %}
+
+{% block class_widget_addon_append -%}
+    rounded-none rounded-r-lg
+{%- endblock class_widget_addon_append %}
+
+{% block class_addon_prepend -%}
+    border-r-0 rounded-l-md
+{%- endblock class_addon_prepend %}
+
+{% block class_addon_append -%}
+    border-l-0 rounded-r-md
+{%- endblock class_addon_append %}
+
+{% block class_help_text -%}
+    mt-2 text-sm text-gray-500 dark:text-gray-400
+{%- endblock class_help_text %}
+
+{% block class_label_error -%}
+    block mb-2 text-sm font-medium text-red-600 dark:text-red-500
+{%- endblock class_label_error %}
+
+{% block class_input_radio_label_error -%}
+    ml-2 text-sm font-medium text-red-600
+{%- endblock class_input_radio_label_error %}
+
+{% block class_input_switch_label_error -%}
+    {{ block('class_input_radio_label_error') }}
+{%- endblock class_input_switch_label_error %}
+
+{% block class_input_error -%}
+    bg-red-50 border-red-500 text-red-900 placeholder-red-700
+{%- endblock class_input_error %}
+
+{% block class_text_error -%}
+    mt-2 text-sm text-red-600
+{%- endblock class_text_error %}
+
+{% block class_input_disabled -%}
+    disabled:bg-gray-100 disabled:border-gray-300 disabled:cursor-not-allowed
+{%- endblock class_input_disabled %}

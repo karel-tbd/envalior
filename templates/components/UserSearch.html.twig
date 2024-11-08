@@ -1,21 +1,13 @@
-<div{{ attributes }}>
+<div {{ attributes }}>
     {{ form_start(form) }}
-    {{ form_rest(form) }}
+    <div class="grid grid-cols-4 gap-3">
+        {{ form_row(form.email) }}
+        {{ form_row(form.company) }}
+        {{ form_row(form.status) }}
+    </div>
     {{ form_end(form) }}
 
     <div class="relative overflow-x-auto">
-        <div class=" uppercase bg-gray-700 text-white grid grid-cols-3 mb-1 py-2 text-center">
-            <a href="{{ path('app_status', {status:'Accepted'}) }}">
-                Geaccepteerd
-            </a>
-            <a href="{{ path('app_status', {status:'Pending'}) }}">
-                In Behandeling
-            </a>
-            <a href="{{ path('app_status', {status:'Rejected'}) }}">
-                Geweigerd
-            </a>
-
-        </div>
         <table class="w-full text-sm text-left rtl:text-right  text-gray-400">
             <thead class="text-xs uppercase  bg-gray-700 text-gray-400">
             <tr class="text-white">
@@ -33,6 +25,9 @@
                 </th>
                 <th scope="col" class="px-6 py-3">
                     Envalior contact
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Status
                 </th>
                 <th scope="col" class="px-6 py-3">
                     Actions
@@ -57,13 +52,28 @@
                     <td class="px-6 py-4">
                         {{ user.envaliorContact }}
                     </td>
+                    <td class="px-6 py-4">
+                        {{ user.status.value }}
+                    </td>
                     <td>
-                        Accepteren / Weiger / Verwijder
+                        {% if user.status.value == 'Pending' %}
+                            <a href="/manage/user/accepted/{{ user.uuid }}">Accepteren</a> /
+                            <a href="/manage/user/rejected/{{ user.uuid }}">Weiger</a> /
+                            <a href="/manage/user/deleted/{{ user.uuid }}">Verwijder</a>
+                        {% endif %}
+                        {% if user.status.value == 'Accepted' %}
+                            <a href="/manage/user/rejected/{{ user.uuid }}">Weiger</a> /
+                            <a href="/manage/user/deleted/{{ user.uuid }}">Verwijder</a>
+                        {% endif %}
+                        {% if user.status.value == 'Rejected' %}
+                            <a href="/manage/user/accepted/{{ user.uuid }}">Accepteren</a> /
+                            <a href="/manage/user/deleted/{{ user.uuid }}">Verwijder</a>
+                        {% endif %}
+
                     </td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
     </div>
-
 </div>
